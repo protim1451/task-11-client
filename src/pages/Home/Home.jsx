@@ -1,11 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import Banner from './Banner';
 
 const Home = () => {
     return (
         <div>
             <Helmet>BookNest || Homepage</Helmet>
-            <h2>This is Home</h2>
+            <Banner></Banner>
         </div>
     );
 };
