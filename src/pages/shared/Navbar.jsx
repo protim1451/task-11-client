@@ -1,14 +1,19 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hook/useAuth";
+import { useState } from "react";
 
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
+    const [currentUser, setCurrentUser] = useState(null);
+    const [darkTheme, setDarkTheme] = useState(false);
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/addbooks'>Add Books</NavLink></li>
         <li><NavLink to='/allbooks'>All Books</NavLink></li>
         <li><NavLink to='/borrowedbooks'>Borrowed Books</NavLink></li>
-        
+
     </>
 
     return (
@@ -20,7 +25,7 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                           {links}
+                            {links}
                         </ul>
                     </div>
                     <Link to='/' className="btn btn-ghost text-xl">
@@ -33,7 +38,12 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to='/login' className="btn btn-primary">Login</Link>
+                    {/* <Link to='/login' className="btn btn-primary">Login</Link> */}
+                    {user ? (
+                        <button onClick={logOut} className="btn bg-purple-600">Logout</button>
+                    ) : (
+                        <Link to='/login' className="btn btn-primary">Login</Link>
+                    )}
                 </div>
             </div>
         </div>

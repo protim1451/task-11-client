@@ -120,7 +120,16 @@ const AddBook = () => {
                             onChange={handleChange}
                         >
                             <option value="">Select a category</option>
-                            {/* Add your category options here */}
+                            <option value="Fiction">Fiction</option>
+                            <option value="Non-fiction">Non-fiction</option>
+                            <option value="Mystery">Mystery</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Science fiction">Science fiction</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Historical fiction">Historical fiction</option>
+                            <option value="Biography">Biography</option>
+                            <option value="Self-help">Self-help</option>
                         </select>
                     </label>
                 </div>
@@ -135,14 +144,21 @@ const AddBook = () => {
                 </div>
                 <div>
                     <label className="block mb-1 font-bold">Rating:</label>
-                    <input
-                        type="number"
+                    <select
                         name="rating"
                         value={formData.rating}
                         onChange={handleChange}
                         className="w-full border border-gray-300 rounded-md p-2"
-                    />
+                    >
+                        <option value="">Select a rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
+
                 <button
                     type="submit"
                     className="btn-primary btn-block text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
