@@ -5,7 +5,7 @@ const Banner = () => {
     const content = <>
         <h1 className="text-4xl font-bold text-white">Welcome to BookNest</h1>
         <p className="text-lg text-white lg:px-24">Dive into the World of Books with BookNest! Discover captivating stories, explore diverse genres, and embark on literary adventures. Let us be your companion in the journey of reading and discovery. Welcome to BookNest, where every book is a portal to new worlds and endless imagination.</p>
-        <Link to='/register'> <button className="mt-4 px-6 py-2 bg-[#2CCCD3] text-white rounded hover:bg-blue-600">Register</button></Link>
+        <Link to='/register'> <button className="mt-4 px-6 py-2 btn-primary text-white rounded ">Register</button></Link>
     </>
     return (
         <div className="relative" style={{ height: '80vh' }}>
