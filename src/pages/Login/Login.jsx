@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import useAuth from "../../Hook/useAuth";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
