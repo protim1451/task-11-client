@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../Hook/useAuth';
 import Swal from 'sweetalert2';
-
 
 const MyAddedBooks = () => {
     const { user } = useAuth();
     const [userBooks, setUserBooks] = useState([]);
-  
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserBooks = async () => {
@@ -75,6 +75,10 @@ const MyAddedBooks = () => {
         });
     };
 
+    const handleUpdateBook = (bookId) => {
+        navigate(`/update-book/${bookId}`);
+    };
+
     return (
         <div className="container mx-auto">
             <h2 className="text-3xl font-bold mb-4 text-center">My Added Books</h2>
@@ -84,7 +88,7 @@ const MyAddedBooks = () => {
                         <th className="md:px-4 py-2">Book Name</th>
                         <th className="md:px-4 py-2">Author</th>
                         <th className="md:px-4 py-2">Quantity</th>
-                        <th className="md:px-4 py-2">Action</th>
+                        <th className="md:px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +98,18 @@ const MyAddedBooks = () => {
                             <td className="border md:px-4 py-2">{book.author}</td>
                             <td className="border md:px-4 py-2">{book.quantity}</td>
                             <td className="border md:px-4 py-2">
-                                <button onClick={() => confirmDeleteBook(book._id)} className="text-red-500 font-bold hover:text-red-700">Delete</button>
+                                <button
+                                    onClick={() => confirmDeleteBook(book._id)}
+                                    className="text-red-500 font-bold hover:text-red-700 mr-4"
+                                >
+                                    Delete
+                                </button>
+                                <button
+                                    onClick={() => handleUpdateBook(book._id)}
+                                    className="text-blue-500 font-bold hover:text-blue-700"
+                                >
+                                    Update
+                                </button>
                             </td>
                         </tr>
                     ))}

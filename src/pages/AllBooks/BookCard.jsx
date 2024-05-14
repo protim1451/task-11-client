@@ -24,11 +24,11 @@ const BookCard = ({ book }) => {
                         <div className="card-body">
                             <p>Added By: <small>{book.userName} ({book.userEmail})</small></p>
                         </div>
-                        <div className="">
+                        {/* <div className="">
                             <Link to={`/allbooks/${_id}`}>
                                 <button className="btn btn-block bg-teal-300">See Details</button>
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
