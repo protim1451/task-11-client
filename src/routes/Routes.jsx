@@ -11,6 +11,8 @@ import AddBook from "../pages/AddBook/AddBook";
 import PrivateRoute from "./PrivateRoute";
 import AllBooks from "../pages/AllBooks/AllBooks";
 import MyAddedBooks from "../pages/AllBooks/MyAddedBooks";
+import CategoryPage from "../pages/CategoryPage/CategoryPage";
+import BookDetail from "../pages/BookDetail/BookDetail";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,17 @@ const router = createBrowserRouter([
         path: '/myaddedbooks',
         element: <PrivateRoute>
           <MyAddedBooks></MyAddedBooks>
+        </PrivateRoute>,
+      },
+      {
+        path: '/category/:category',
+        element: <CategoryPage></CategoryPage>,
+        loader: ({ params }) => fetch(`http://localhost:3000/books/category/${params.category}`),
+      },
+      {
+        path: "/book/:id",
+        element: <PrivateRoute>
+          <BookDetail></BookDetail>
         </PrivateRoute>,
       },
     ],

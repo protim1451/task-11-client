@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../FirebaseProvider/FirebaseProvider";
 
 const AddBook = () => {
     const { user } = useContext(AuthContext);
-
+    const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         image: '',
         name: '',
@@ -18,6 +18,23 @@ const AddBook = () => {
         userName: user ? user.displayName : '',
         userEmail: user ? user.email : ''
     });
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/categories');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch categories');
+                }
+                const data = await response.json();
+                setCategories(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +50,6 @@ const AddBook = () => {
         const success = await submitFormDataToBackend(formData);
         if (success) {
             toast.success('Book added successfully');
-            // Clear form fields after successful submission
             setFormData({
                 image: '',
                 name: '',
@@ -67,6 +83,7 @@ const AddBook = () => {
             return false;
         }
     };
+
     return (
         <div className="max-w-lg mx-auto">
             <h2 className="text-2xl font-bold mb-4">Add Book</h2>
@@ -118,18 +135,12 @@ const AddBook = () => {
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
+                            className="w-full border border-gray-300 rounded-md p-2"
                         >
                             <option value="">Select a category</option>
-                            <option value="Fiction">Fiction</option>
-                            <option value="Non-fiction">Non-fiction</option>
-                            <option value="Mystery">Mystery</option>
-                            <option value="Romance">Romance</option>
-                            <option value="Science fiction">Science fiction</option>
-                            <option value="Fantasy">Fantasy</option>
-                            <option value="Thriller">Thriller</option>
-                            <option value="Historical fiction">Historical fiction</option>
-                            <option value="Biography">Biography</option>
-                            <option value="Self-help">Self-help</option>
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.name}>{category.name}</option>
+                            ))}
                         </select>
                     </label>
                 </div>
@@ -166,7 +177,7 @@ const AddBook = () => {
                     Add Book
                 </button>
             </form>
-            <ToastContainer></ToastContainer>
+            <ToastContainer />
         </div>
     );
 };

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import useAuth from '../../Hook/useAuth';
+import Swal from 'sweetalert2';
+
 
 const MyAddedBooks = () => {
     const { user } = useAuth();
     const [userBooks, setUserBooks] = useState([]);
+  
 
     useEffect(() => {
         const fetchUserBooks = async () => {
@@ -35,36 +38,63 @@ const MyAddedBooks = () => {
                 method: 'DELETE'
             });
             if (response.ok) {
-                // Remove the deleted book from the userBooks state
                 setUserBooks(prevBooks => prevBooks.filter(book => book._id !== bookId));
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your book has been deleted.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             } else {
                 throw new Error('Failed to delete book');
             }
         } catch (error) {
             console.error('Error deleting book:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to delete the book.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
+    };
+
+    const confirmDeleteBook = (bookId) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this book!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDeleteBook(bookId);
+            }
+        });
     };
 
     return (
         <div className="container mx-auto">
             <h2 className="text-3xl font-bold mb-4 text-center">My Added Books</h2>
-            <table className="table-auto w-full">
+            <table className="table w-full">
                 <thead>
                     <tr>
-                        <th className="px-4 py-2">Book Name</th>
-                        <th className="px-4 py-2">Author</th>
-                        <th className="px-4 py-2">Quantity</th>
-                        <th className="px-4 py-2">Action</th>
+                        <th className="md:px-4 py-2">Book Name</th>
+                        <th className="md:px-4 py-2">Author</th>
+                        <th className="md:px-4 py-2">Quantity</th>
+                        <th className="md:px-4 py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {userBooks.map((book,idx) => (
+                    {userBooks.map((book, idx) => (
                         <tr key={idx}>
-                            <td className="border px-4 py-2">{book.name}</td>
-                            <td className="border px-4 py-2">{book.author}</td>
-                            <td className="border px-4 py-2">{book.quantity}</td>
-                            <td className="border px-4 py-2">
-                                <button onClick={() => handleDeleteBook(book._id)} className="text-red-500 font-bold hover:text-red-700">Delete</button>
+                            <td className="border md:px-4 py-2">{book.name}</td>
+                            <td className="border md:px-4 py-2">{book.author}</td>
+                            <td className="border md:px-4 py-2">{book.quantity}</td>
+                            <td className="border md:px-4 py-2">
+                                <button onClick={() => confirmDeleteBook(book._id)} className="text-red-500 font-bold hover:text-red-700">Delete</button>
                             </td>
                         </tr>
                     ))}

@@ -5,7 +5,7 @@ const BookCard = ({ book }) => {
     const { _id, image, name, author, category, shortDescription, rating } = book;
 
     return (
-        <Reveal cascade>
+       
             <div>
                 <div className="card bg-base-100 shadow-xl">
                     <figure><img className="w-full h-[280px]" src={image} alt={name} /></figure>
@@ -32,7 +32,7 @@ const BookCard = ({ book }) => {
                     </div>
                 </div>
             </div>
-        </Reveal>
+        
     );
 };
 
