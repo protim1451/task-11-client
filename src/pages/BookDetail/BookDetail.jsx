@@ -1,9 +1,11 @@
-// BookDetail.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useAuth from '../../Hook/useAuth';
+import Swal from 'sweetalert2';
 
 const BookDetail = () => {
     const { id } = useParams();
+    const { user } = useAuth();
     const [book, setBook] = useState(null);
 
     useEffect(() => {
@@ -23,6 +25,48 @@ const BookDetail = () => {
         fetchBookDetails();
     }, [id]);
 
+    const handleBorrow = async () => {
+        const { value: returnDate } = await Swal.fire({
+            title: 'Enter return date',
+            input: 'date',
+            inputLabel: 'Return Date',
+            inputPlaceholder: 'Select return date',
+            showCancelButton: true
+        });
+
+        if (returnDate) {
+            const borrowInfo = {
+                bookId: id,
+                userEmail: user.email,
+                userName: user.displayName,
+                returnDate,
+                borrowDate: new Date().toISOString(),
+                name: book.name,
+                image: book.image,
+                category: book.category
+            };
+
+            try {
+                const response = await fetch(`http://localhost:3000/borrow/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(borrowInfo)
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to borrow book');
+                }
+                const data = await response.json();
+                setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
+                Swal.fire('Success', 'Book borrowed successfully', 'success');
+            } catch (error) {
+                console.error('Error borrowing book:', error);
+                Swal.fire('Error', 'Failed to borrow book', 'error');
+            }
+        }
+    };
+
     if (!book) {
         return <div>Loading...</div>;
     }
@@ -40,6 +84,13 @@ const BookDetail = () => {
                     <p className="mb-2"><span className='font-bold'>Category:</span> {book.category}</p>
                     <p className="mb-2"><span className='font-bold'>Rating:</span> {book.rating}</p>
                     <p className="text-gray-600">{book.shortDescription}</p>
+                    <button 
+                        className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded ${book.quantity === 0 ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                        disabled={book.quantity === 0}
+                        onClick={handleBorrow}
+                    >
+                        {book.quantity === 0 ? 'Out of Stock' : 'Borrow'}
+                    </button>
                 </div>
             </div>
         </div>
