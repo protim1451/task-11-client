@@ -1,9 +1,13 @@
-/* General Navbar styling */
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+}
+
+.navbar button{
+    background-color: teal;
 }
 
 .profile-wrapper {

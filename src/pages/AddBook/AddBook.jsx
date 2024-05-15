@@ -173,7 +173,7 @@ const AddBook = () => {
 
                 <button
                     type="submit"
-                    className="btn-primary btn-block text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+                    className="bg-teal-600 btn-block text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
                 >
                     Add Book
                 </button>

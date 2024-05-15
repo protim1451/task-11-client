@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/allbooks',
-        element: <AllBooks></AllBooks>,
+        element: <PrivateRoute><AllBooks></AllBooks></PrivateRoute>,
       },
       {
         path: '/myaddedbooks',
