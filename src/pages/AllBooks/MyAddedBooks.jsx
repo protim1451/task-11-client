@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../Hook/useAuth';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const MyAddedBooks = () => {
     const { user } = useAuth();
@@ -80,7 +81,9 @@ const MyAddedBooks = () => {
     };
 
     return (
+      
         <div className="container mx-auto">
+              <Helmet>BookNest || My Added Books</Helmet>
             <h2 className="text-3xl font-bold mb-4 text-center">My Added Books</h2>
             <table className="table w-full">
                 <thead>

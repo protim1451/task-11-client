@@ -49,7 +49,7 @@ const AllBooks = () => {
 
     return (
         <div>
-            <Helmet>Your App Name | All Books</Helmet>
+            <Helmet>BookNest | All Books</Helmet>
             <h2 className="text-2xl font-bold mb-4 text-center">All Books</h2>
             <div className="flex justify-between mb-4">
                 <select

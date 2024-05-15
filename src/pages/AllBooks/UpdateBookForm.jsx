@@ -72,6 +72,7 @@ const UpdateBookForm = () => {
 
     return (
         <div className="container mx-auto">
+            <Helmet>BookNest || Update</Helmet>
             <h2 className="text-3xl font-bold mb-4 text-center">Update Book</h2>
             {book ? (
                 <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
