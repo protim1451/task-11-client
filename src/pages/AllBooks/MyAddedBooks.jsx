@@ -93,25 +93,27 @@ const MyAddedBooks = () => {
                 </thead>
                 <tbody>
                     {userBooks.map((book, idx) => (
-                        <tr key={idx}>
-                            <td className="border md:px-4 py-2">{book.name}</td>
-                            <td className="border md:px-4 py-2">{book.author}</td>
-                            <td className="border md:px-4 py-2">{book.quantity}</td>
-                            <td className="border md:px-4 py-2">
-                                <button
-                                    onClick={() => confirmDeleteBook(book._id)}
-                                    className="text-red-500 font-bold hover:text-red-700 mr-4"
-                                >
-                                    Delete
-                                </button>
-                                <button
-                                    onClick={() => handleUpdateBook(book._id)}
-                                    className="text-blue-500 font-bold hover:text-blue-700"
-                                >
-                                    Update
-                                </button>
-                            </td>
-                        </tr>
+                        book.userEmail === user.email ? (
+                            <tr key={idx}>
+                                <td className="border md:px-4 py-2">{book.name}</td>
+                                <td className="border md:px-4 py-2">{book.author}</td>
+                                <td className="border md:px-4 py-2">{book.quantity}</td>
+                                <td className="border md:px-4 py-2">
+                                    <button
+                                        onClick={() => confirmDeleteBook(book._id)}
+                                        className="text-red-500 font-bold hover:text-red-700 mr-4"
+                                    >
+                                        Delete
+                                    </button>
+                                    <button
+                                        onClick={() => handleUpdateBook(book._id)}
+                                        className="text-blue-500 font-bold hover:text-blue-700"
+                                    >
+                                        Update
+                                    </button>
+                                </td>
+                            </tr>
+                        ) : null
                     ))}
                 </tbody>
             </table>

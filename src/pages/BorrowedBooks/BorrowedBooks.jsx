@@ -53,6 +53,8 @@ const BorrowedBooks = () => {
                         <img src={borrowedBook.image} alt={borrowedBook.name} className="w-full h-auto object-cover mb-2" />
                         <h3 className="text-xl font-bold mb-2">{borrowedBook.name}</h3>
                         <p><span className='font-bold'>Category:</span> {borrowedBook.category}</p>
+                        <p><span className='font-bold'>Borrowed By:</span> {borrowedBook.userName}</p>
+                        <p><span className='font-bold'>Email:</span> {borrowedBook.userEmail}</p>
                         <p><span className='font-bold'>Borrowed Date:</span> {new Date(borrowedBook.borrowDate).toLocaleDateString()}</p>
                         <p><span className='font-bold'>Return Date:</span> {new Date(borrowedBook.returnDate).toLocaleDateString()}</p>
                         <button 

@@ -27,6 +27,7 @@ const AddBook = () => {
                     throw new Error('Failed to fetch categories');
                 }
                 const data = await response.json();
+                console.log('Fetched categories:', data); // Debug log
                 setCategories(data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -138,8 +139,8 @@ const AddBook = () => {
                             className="w-full border border-gray-300 rounded-md p-2"
                         >
                             <option value="">Select a category</option>
-                            {categories.map((category) => (
-                                <option key={category._id} value={category.name}>{category.name}</option>
+                            {categories.map((category, index) => (
+                                <option key={index} value={category}>{category}</option>
                             ))}
                         </select>
                     </label>

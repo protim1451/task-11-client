@@ -27,45 +27,49 @@ const BookDetail = () => {
 
     const handleBorrow = async () => {
         const { value: returnDate } = await Swal.fire({
-            title: 'Enter return date',
-            input: 'date',
-            inputLabel: 'Return Date',
-            inputPlaceholder: 'Select return date',
-            showCancelButton: true
+          title: 'Enter return date',
+          input: 'date',
+          inputLabel: 'Return Date',
+          inputPlaceholder: 'Select return date',
+          showCancelButton: true
         });
-
+      
         if (returnDate) {
-            const borrowInfo = {
-                bookId: id,
-                userEmail: user.email,
-                userName: user.displayName,
-                returnDate,
-                borrowDate: new Date().toISOString(),
-                name: book.name,
-                image: book.image,
-                category: book.category
-            };
-
-            try {
-                const response = await fetch(`http://localhost:3000/borrow/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(borrowInfo)
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to borrow book');
-                }
-                const data = await response.json();
-                setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
-                Swal.fire('Success', 'Book borrowed successfully', 'success');
-            } catch (error) {
-                console.error('Error borrowing book:', error);
-                Swal.fire('Error', 'Failed to borrow book', 'error');
+          const borrowInfo = {
+            bookId: id,
+            userEmail: user.email,
+            userName: user.displayName,
+            returnDate,
+            borrowDate: new Date().toISOString(),
+            name: book.name,
+            image: book.image,
+            category: book.category
+          };
+      
+          try {
+            const response = await fetch(`http://localhost:3000/borrow/${id}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(borrowInfo)
+            });
+      
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || 'Failed to borrow book');
             }
+      
+            const data = await response.json();
+            setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
+            Swal.fire('Success', 'Book borrowed successfully', 'success');
+          } catch (error) {
+            console.error('Error borrowing book:', error);
+            Swal.fire('Error', error.message || 'Failed to borrow book', 'error');
+          }
         }
-    };
+      };
+      
 
     if (!book) {
         return <div>Loading...</div>;
