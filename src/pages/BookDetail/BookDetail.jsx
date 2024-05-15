@@ -26,49 +26,62 @@ const BookDetail = () => {
     }, [id]);
 
     const handleBorrow = async () => {
-        const { value: returnDate } = await Swal.fire({
-          title: 'Enter return date',
-          input: 'date',
-          inputLabel: 'Return Date',
-          inputPlaceholder: 'Select return date',
-          showCancelButton: true
-        });
-      
-        if (returnDate) {
-          const borrowInfo = {
-            bookId: id,
-            userEmail: user.email,
-            userName: user.displayName,
-            returnDate,
-            borrowDate: new Date().toISOString(),
-            name: book.name,
-            image: book.image,
-            category: book.category
-          };
-      
-          try {
-            const response = await fetch(`http://localhost:3000/borrow/${id}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(borrowInfo)
-            });
-      
-            if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(errorData.message || 'Failed to borrow book');
-            }
-      
-            const data = await response.json();
-            setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
-            Swal.fire('Success', 'Book borrowed successfully', 'success');
-          } catch (error) {
-            console.error('Error borrowing book:', error);
-            Swal.fire('Error', error.message || 'Failed to borrow book', 'error');
+      try {
+          // Check if the user has already borrowed the book
+          const response = await fetch(`http://localhost:3000/borrowed/${user.email}`);
+          if (!response.ok) {
+              throw new Error('Failed to fetch borrowed books');
           }
-        }
-      };
+          const borrowedBooks = await response.json();
+          const isBookAlreadyBorrowed = borrowedBooks.some(borrowedBook => borrowedBook.bookId === id);
+          if (isBookAlreadyBorrowed) {
+              Swal.fire('Error', 'You have already borrowed this book', 'error');
+              return;
+          }
+  
+          const { value: returnDate } = await Swal.fire({
+            title: 'Enter return date',
+            input: 'date',
+            inputLabel: 'Return Date',
+            inputPlaceholder: 'Select return date',
+            showCancelButton: true
+          });
+        
+          if (returnDate) {
+            const borrowInfo = {
+              bookId: id,
+              userEmail: user.email,
+              userName: user.displayName,
+              returnDate,
+              borrowDate: new Date().toISOString(),
+              name: book.name,
+              image: book.image,
+              category: book.category
+            };
+        
+            const borrowResponse = await fetch(`http://localhost:3000/borrow/${id}`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(borrowInfo)
+              });
+        
+              if (!borrowResponse.ok) {
+                const errorData = await borrowResponse.json();
+                throw new Error(errorData.message || 'Failed to borrow book');
+              }
+        
+              const data = await borrowResponse.json();
+              setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
+              Swal.fire('Success', 'Book borrowed successfully', 'success');
+          }
+      } catch (error) {
+          console.error('Error borrowing book:', error);
+          Swal.fire('Error', error.message || 'Failed to borrow book', 'error');
+      }
+  };
+  
       
 
     if (!book) {
