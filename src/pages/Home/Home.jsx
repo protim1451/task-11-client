@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Banner from './Banner';
 import BookCategory from './BookCategory';
+import FeaturedBooksSection from './FeaturedBooksSection';
+import Review from './Review';
 
 const Home = () => {
     const [categories, setCategories] = useState([]);
@@ -28,6 +30,8 @@ const Home = () => {
             <Helmet>BookNest || Homepage</Helmet>
             <Banner></Banner>
             <BookCategory categories={categories}></BookCategory>
+            <FeaturedBooksSection></FeaturedBooksSection>
+            <Review></Review>
         </div>
     );
 };
