@@ -12,8 +12,8 @@ const BookCard = ({ book }) => {
                     <div className="card-body">
                         <h2 className="card-title">
                             {name}
-                            <div className="badge badge-secondary">{category}</div>
                         </h2>
+                        <div className="badge badge-secondary">{category}</div>
                         <p>{shortDescription.slice(0, 100)}
                         </p>
                         <div className="card-actions justify-end">
