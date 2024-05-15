@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import SocialLogin from "../Login/SocialLogin";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const { createUser, logOut } = useAuth();

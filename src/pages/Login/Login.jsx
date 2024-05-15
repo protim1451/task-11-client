@@ -6,6 +6,7 @@ import useAuth from "../../Hook/useAuth";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 
 const Login = () => {

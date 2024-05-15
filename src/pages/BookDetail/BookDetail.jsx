@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuth from '../../Hook/useAuth';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const BookDetail = () => {
     const { id } = useParams();
