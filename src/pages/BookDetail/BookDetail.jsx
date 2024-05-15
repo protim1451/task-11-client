@@ -12,7 +12,7 @@ const BookDetail = () => {
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/books/${id}`);
+                const response = await fetch(`https://b9a11-server-side-protim1451.vercel.app/books/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch book details');
                 }
@@ -29,7 +29,7 @@ const BookDetail = () => {
     const handleBorrow = async () => {
       try {
           // Check if the user has already borrowed the book
-          const response = await fetch(`http://localhost:3000/borrowed/${user.email}`);
+          const response = await fetch(`https://b9a11-server-side-protim1451.vercel.app/borrowed/${user.email}`);
           if (!response.ok) {
               throw new Error('Failed to fetch borrowed books');
           }
@@ -60,7 +60,7 @@ const BookDetail = () => {
               category: book.category
             };
         
-            const borrowResponse = await fetch(`http://localhost:3000/borrow/${id}`, {
+            const borrowResponse = await fetch(`https://b9a11-server-side-protim1451.vercel.app/borrow/${id}`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

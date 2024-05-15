@@ -11,7 +11,7 @@ const AllBooks = () => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await fetch('http://localhost:3000/books'); 
+                const response = await fetch('https://b9a11-server-side-protim1451.vercel.app/books'); 
                 if (response.ok) {
                     const data = await response.json();
                     setBooks(data); 
