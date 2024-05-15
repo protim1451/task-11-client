@@ -1,8 +1,24 @@
-# React + Vite
+# BookNest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+live link- https://b9a11-client-side-protim1451.web.app/
 
-Currently, two official plugins are available:
+This is a web application for managing books, borrowing books, and viewing book details.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- View all available books
+- View book details
+- Borrow books
+- Return borrowed books
+- View borrowed books
+
+## Technologies Used
+
+- **Frontend**: React.js, React Router, Axios, SweetAlert2
+- **Backend**: Node.js, Express.js, MongoDB
+- **Authentication**: JSON Web Tokens (JWT)
+- **Styling**: Tailwind CSS
+- **Database**: MongoDB Atlas
+
+
+
