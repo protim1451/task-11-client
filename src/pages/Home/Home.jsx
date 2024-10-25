@@ -4,6 +4,7 @@ import Banner from './Banner';
 import BookCategory from './BookCategory';
 import FeaturedBooksSection from './FeaturedBooksSection';
 import Review from './Review';
+import FAQ from './Faq';
 
 const Home = () => {
     const [categories, setCategories] = useState([]);
@@ -11,7 +12,8 @@ const Home = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('https://b9a11-server-side-protim1451.vercel.app/categories');
+                //const response = await fetch('https://b9a11-server-side-protim1451.vercel.app/categories');
+                const response = await fetch('http://localhost:3000/categories');
                 if (!response.ok) {
                     throw new Error('Failed to fetch categories');
                 }
@@ -32,6 +34,7 @@ const Home = () => {
             <BookCategory categories={categories}></BookCategory>
             <FeaturedBooksSection></FeaturedBooksSection>
             <Review></Review>
+            <FAQ></FAQ>
         </div>
     );
 };
